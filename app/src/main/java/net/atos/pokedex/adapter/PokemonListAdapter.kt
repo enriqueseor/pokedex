@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -38,17 +39,13 @@ class PokemonListAdapter(context: Context?) : RecyclerView.Adapter<PokemonListAd
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val p: Any = dataset[position]
         val linkedTreeMap: LinkedTreeMap<*, *> = p as LinkedTreeMap<*, *>
-        holder.tvPokemonName.text =
-            Objects.requireNonNull(linkedTreeMap["name"]).toString()
+        holder.tvPokemonName.text = Objects.requireNonNull(linkedTreeMap["name"]).toString()
         val strNumber = Objects.requireNonNull(linkedTreeMap["url"]).toString()
         val pokemonNumber = strNumber.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         val finalStrNumber = pokemonNumber[6]
         println(finalStrNumber)
         Glide.with(context!!)
-            .load(
-                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"
-                        + finalStrNumber + ".png"
-            )
+            .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$finalStrNumber.png")
             .centerCrop()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.ivPokemon)
@@ -59,11 +56,12 @@ class PokemonListAdapter(context: Context?) : RecyclerView.Adapter<PokemonListAd
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val cardPokemon: CardView = itemView.findViewById(R.id.cardPokemon)
         val ivPokemon: ImageView = itemView.findViewById(R.id.ivPokemon)
         val tvPokemonName: TextView = itemView.findViewById(R.id.tvPokemonName)
 
         init {
-            ivPokemon.setOnClickListener {
+            cardPokemon.setOnClickListener {
                 val pokemonName = tvPokemonName.text.toString().uppercase(Locale.getDefault())
                 val toastContext = itemView.context.applicationContext
                 Toast.makeText(toastContext, pokemonName, Toast.LENGTH_SHORT).show()
