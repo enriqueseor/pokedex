@@ -1,4 +1,4 @@
-package net.atos.pokedex.adapter
+package net.atos.pokedex.ui.pokemon
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -13,20 +13,20 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.gson.internal.LinkedTreeMap
 import net.atos.pokedex.R
-import net.atos.pokedex.api.Pokemon
+import net.atos.pokedex.data.model.PokemonModel
 import java.util.Locale
 import java.util.Objects
 
-class PokemonListAdapter(context: Context?) : RecyclerView.Adapter<PokemonListAdapter.ViewHolder>() {
+class PokemonAdapter(context: Context?) : RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
 
-    private val dataset: ArrayList<Pokemon>
+    private val dataset: ArrayList<PokemonModel>
 
     init {
         Companion.context = context
         dataset = ArrayList()
     }
 
-    fun addPokemon(pokemonList: ArrayList<Pokemon>?) {
+    fun addPokemon(pokemonList: ArrayList<PokemonModel>?) {
         dataset.addAll(pokemonList!!)
         notifyDataSetChanged()
     }

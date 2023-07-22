@@ -1,14 +1,14 @@
-package net.atos.pokedex
+package net.atos.pokedex.ui.pokemon
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import net.atos.pokedex.adapter.PokemonListAdapter
-import net.atos.pokedex.api.Pokemon
-import net.atos.pokedex.api.PokemonFetchResults
-import net.atos.pokedex.service.PokemonAPIService
+import net.atos.pokedex.R
+import net.atos.pokedex.data.model.PokemonModel
+import net.atos.pokedex.data.model.PokemonFetchResults
+import net.atos.pokedex.data.remote.PokemonAPIService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,13 +18,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : AppCompatActivity() {
 
     private var retrofit: Retrofit? = null
-    private var pokemonAdapterList: PokemonListAdapter? = null
+    private var pokemonAdapterList: PokemonAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val recyclerView = findViewById<View>(R.id.recyclerViewPokemon) as RecyclerView
-        pokemonAdapterList = PokemonListAdapter(this.baseContext)
+        pokemonAdapterList = PokemonAdapter(this.baseContext)
         recyclerView.adapter = pokemonAdapterList
         recyclerView.setHasFixedSize(true)
         val gridLayoutManager = GridLayoutManager(this, 1)
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                     for (i in pokemonList?.indices!!) {
                         pokemonList[i]
                     }
-                    pokemonAdapterList!!.addPokemon(pokemonList as ArrayList<Pokemon>?)
+                    pokemonAdapterList!!.addPokemon(pokemonList as ArrayList<PokemonModel>?)
                 }
             }
             override fun onFailure(call: Call<PokemonFetchResults?>, t: Throwable) {
