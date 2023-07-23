@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.atos.pokedex.R
 import net.atos.pokedex.data.model.PokemonModel
-import net.atos.pokedex.data.model.PokemonFetchResults
 import net.atos.pokedex.data.remote.PokemonAPIService
+import net.atos.pokedex.data.remote.PokemonResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,10 +39,10 @@ class MainActivity : AppCompatActivity() {
     private fun getData() {
         val service = retrofit!!.create(PokemonAPIService::class.java)
         val pokemonFetchResultsCall = service.pokemons
-        pokemonFetchResultsCall?.enqueue(object : Callback<PokemonFetchResults?> {
+        pokemonFetchResultsCall?.enqueue(object : Callback<PokemonResponse?> {
             override fun onResponse(
-                call: Call<PokemonFetchResults?>,
-                response: Response<PokemonFetchResults?>
+                call: Call<PokemonResponse?>,
+                response: Response<PokemonResponse?>
             ) {
                 if (response.isSuccessful) {
                     val pokemonFetchResults = response.body()!!
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                     pokemonAdapterList!!.addPokemon(pokemonList as ArrayList<PokemonModel>?)
                 }
             }
-            override fun onFailure(call: Call<PokemonFetchResults?>, t: Throwable) {
+            override fun onFailure(call: Call<PokemonResponse?>, t: Throwable) {
                 TODO("Not yet implemented")
             }
         })
