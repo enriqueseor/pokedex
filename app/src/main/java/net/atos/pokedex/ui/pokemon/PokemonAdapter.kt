@@ -1,5 +1,6 @@
 package net.atos.pokedex.ui.pokemon
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -15,20 +16,21 @@ import com.google.gson.internal.LinkedTreeMap
 import net.atos.pokedex.R
 import net.atos.pokedex.data.model.PokemonModel
 import java.util.Locale
-import java.util.Objects
 
 class PokemonAdapter(context: Context?) : RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
 
-    private val dataset: ArrayList<PokemonModel>
+    private val dataset: ArrayList<PokemonModel> = ArrayList()
 
     init {
         Companion.context = context
-        dataset = ArrayList()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun addPokemon(pokemonList: ArrayList<PokemonModel>?) {
-        dataset.addAll(pokemonList!!)
-        notifyDataSetChanged()
+        pokemonList?.let {
+            dataset.addAll(it)
+            notifyDataSetChanged()
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,19 +38,21 @@ class PokemonAdapter(context: Context?) : RecyclerView.Adapter<PokemonAdapter.Vi
         return ViewHolder(view)
     }
 
+    @Suppress("CAST_NEVER_SUCCEEDS")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val p: Any = dataset[position]
-        val linkedTreeMap: LinkedTreeMap<*, *> = p as LinkedTreeMap<*, *>
-        holder.tvPokemonName.text = Objects.requireNonNull(linkedTreeMap["name"]).toString()
-        val strNumber = Objects.requireNonNull(linkedTreeMap["url"]).toString()
-        val pokemonNumber = strNumber.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        val finalStrNumber = pokemonNumber[6]
-        println(finalStrNumber)
-        Glide.with(context!!)
-            .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$finalStrNumber.png")
-            .centerCrop()
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(holder.ivPokemon)
+        val p = dataset.getOrNull(position) as? LinkedTreeMap<*, *>
+        p?.run {
+            holder.tvPokemonName.text = this["name"].toString()
+            val finalStrNumber = this["url"].toString().split("/").getOrNull(6)
+
+            finalStrNumber?.let { number ->
+                Glide.with(context!!)
+                    .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$number.png")
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(holder.ivPokemon)
+            }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -63,13 +67,13 @@ class PokemonAdapter(context: Context?) : RecyclerView.Adapter<PokemonAdapter.Vi
         init {
             cardPokemon.setOnClickListener {
                 val pokemonName = tvPokemonName.text.toString().uppercase(Locale.getDefault())
-                val toastContext = itemView.context.applicationContext
-                Toast.makeText(toastContext, pokemonName, Toast.LENGTH_SHORT).show()
+                Toast.makeText(itemView.context.applicationContext, pokemonName, Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     companion object {
+        @SuppressLint("StaticFieldLeak")
         private var context: Context? = null
     }
 }
