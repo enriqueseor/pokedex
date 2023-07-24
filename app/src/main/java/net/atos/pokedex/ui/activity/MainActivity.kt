@@ -1,4 +1,4 @@
-package net.atos.pokedex.ui.pokemon
+package net.atos.pokedex.ui.activity
 
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.atos.pokedex.R
+import net.atos.pokedex.adapter.PokemonAdapter
 import net.atos.pokedex.data.model.PokemonModel
 import net.atos.pokedex.data.remote.PokemonAPIService
 import net.atos.pokedex.data.remote.PokemonResponse

@@ -1,4 +1,4 @@
-package net.atos.pokedex.ui.pokemon
+package net.atos.pokedex.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
