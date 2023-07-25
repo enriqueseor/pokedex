@@ -33,6 +33,10 @@ class PokemonAdapter(context: Context?) : RecyclerView.Adapter<PokemonAdapter.Vi
         }
     }
 
+    override fun getItemCount(): Int {
+        return dataset.size
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_pokemon, parent, false)
         return ViewHolder(view)
@@ -53,10 +57,6 @@ class PokemonAdapter(context: Context?) : RecyclerView.Adapter<PokemonAdapter.Vi
                     .into(holder.ivPokemon)
             }
         }
-    }
-
-    override fun getItemCount(): Int {
-        return dataset.size
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -6,5 +6,5 @@ import com.google.gson.annotations.SerializedName
 class PokemonResponse {
     @SerializedName("results")
     @Expose
-    val results: ArrayList<*>? = null
+    val response: ArrayList<*>? = null
 }

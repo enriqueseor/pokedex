@@ -27,22 +27,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //RECYCLER VIEW
+        setupRecyclerView()
+        setupRetrofit()
+        getData()
+    }
+
+    private fun setupRecyclerView() {
         val recyclerView = findViewById<View>(R.id.recyclerViewPokemon) as RecyclerView
         pokemonAdapter = PokemonAdapter(this.baseContext)
         recyclerView.adapter = pokemonAdapter
         recyclerView.setHasFixedSize(true)
 
-        //LINEAR LAYOUT
         val linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
+    }
 
-        //RETROFIT
+    private fun setupRetrofit() {
         retrofit = Retrofit.Builder()
             .baseUrl("https://pokeapi.co/api/v2/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        getData()
     }
 
     private fun getData() {
@@ -53,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val responseBody = response.body()!!
                     responseBody.let {
-                        val pokemonList = it.results
+                        val pokemonList = it.response
                         pokemonAdapter?.addPokemon(pokemonList as ArrayList<PokemonModel>?)
                     }
                 }
