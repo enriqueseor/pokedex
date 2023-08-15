@@ -1,4 +1,4 @@
-package net.atos.pokedex.adapter
+package net.atos.pokedex.ui.activity.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -47,11 +47,10 @@ class PokemonAdapter(context: Context?) : RecyclerView.Adapter<PokemonAdapter.Vi
         val p = dataset.getOrNull(position) as? LinkedTreeMap<*, *>
         p?.run {
             holder.tvPokemonName.text = this["name"].toString()
-            val finalStrNumber = this["url"].toString().split("/").getOrNull(6)
-
-            finalStrNumber?.let { number ->
+            val number = this["url"].toString().split("/").getOrNull(6)
+            number?.let { num ->
                 Glide.with(context!!)
-                    .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$number.png")
+                    .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$num.png")
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(holder.ivPokemon)
