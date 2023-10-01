@@ -5,5 +5,5 @@ import retrofit2.http.GET
 
 interface PokemonAPIService {
     @get:GET("pokemon?limit=151&offset=0")
-    val pokemons: Call<PokemonResponse?>?
+    val pokemons: Call<PokemonAPIResponse?>?
 }

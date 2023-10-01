@@ -8,10 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import net.atos.pokedex.R
-import net.atos.pokedex.ui.activity.adapter.PokemonAdapter
+import net.atos.pokedex.ui.adapter.PokemonAdapter
 import net.atos.pokedex.data.model.PokemonModel
 import net.atos.pokedex.data.remote.PokemonAPIService
-import net.atos.pokedex.data.remote.PokemonResponse
+import net.atos.pokedex.data.remote.PokemonAPIResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,8 +52,8 @@ class MainActivity : AppCompatActivity() {
     private fun getData() {
         val service = retrofit!!.create(PokemonAPIService::class.java)
         val pokemonResponse = service.pokemons
-        pokemonResponse?.enqueue(object : Callback<PokemonResponse?> {
-            override fun onResponse(call: Call<PokemonResponse?>, response: Response<PokemonResponse?>) {
+        pokemonResponse?.enqueue(object : Callback<PokemonAPIResponse?> {
+            override fun onResponse(call: Call<PokemonAPIResponse?>, response: Response<PokemonAPIResponse?>) {
                 if (response.isSuccessful) {
                     val responseBody = response.body()!!
                     responseBody.let {
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-            override fun onFailure(call: Call<PokemonResponse?>, t: Throwable) {
+            override fun onFailure(call: Call<PokemonAPIResponse?>, t: Throwable) {
                 Log.e("MainActivity", "Network request failed: ${t.message}")
                 Toast.makeText(this@MainActivity, "Network request failed.", Toast.LENGTH_SHORT).show()
             }

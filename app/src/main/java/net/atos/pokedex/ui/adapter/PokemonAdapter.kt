@@ -1,4 +1,4 @@
-package net.atos.pokedex.ui.activity.adapter
+package net.atos.pokedex.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -42,7 +42,6 @@ class PokemonAdapter(context: Context?) : RecyclerView.Adapter<PokemonAdapter.Vi
         return ViewHolder(view)
     }
 
-    @Suppress("CAST_NEVER_SUCCEEDS")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val p = dataset.getOrNull(position) as? LinkedTreeMap<*, *>
         p?.run {
@@ -58,7 +57,7 @@ class PokemonAdapter(context: Context?) : RecyclerView.Adapter<PokemonAdapter.Vi
         }
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val cardPokemon: CardView = itemView.findViewById(R.id.cardPokemon)
         val ivPokemon: ImageView = itemView.findViewById(R.id.ivPokemon)
         val tvPokemonName: TextView = itemView.findViewById(R.id.tvPokemonName)
@@ -72,7 +71,6 @@ class PokemonAdapter(context: Context?) : RecyclerView.Adapter<PokemonAdapter.Vi
     }
 
     companion object {
-        @SuppressLint("StaticFieldLeak")
         private var context: Context? = null
     }
 }
