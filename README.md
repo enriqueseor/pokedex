@@ -1,8 +1,7 @@
 # Pokedex API Project
 
-This project is a fork of this [project](https://github.com/ricardobar96/pokedex-api-old), 
-and it's designed to consume a Pokemon API and display the data in a RecyclerView.
-The app is built using [Android](https://www.android.com/).
+This project is a fork of [pokedex-api-old](https://github.com/ricardobar96/pokedex-api-old). The purpose of this fork is to migrate the whole code from [Java](https://www.java.com/en/) to [Kotlin](https://kotlinlang.org/). Also to remove all unnecessary classes and to optimize the code. The app it's designed to consume a Pokemon API and display the data in a RecyclerView.
+Is built using [Android](https://www.android.com/).
 
 ![MainActivity](images/MainActivity.png)
 
