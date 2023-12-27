@@ -9,7 +9,6 @@ Is built using [Android](https://www.android.com/).
 
 - [Features](#Features)
 - [Getting Started](#getting-started)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Features
@@ -26,16 +25,6 @@ To install the Pokedex on your local machine, follow these steps:
 1. Clone this repository: `git clone https://github.com/enriqueseor/pokedex.git`
 2. Open the project in Android Studio.
 3. Build and Run de project.
-
-## Contributing
-
-Contributions are welcome! If you'd like to contribute to Pokedex, please follow these steps:
-
-1. Fork this repository.
-2. Create a new branch: `git checkout -b feature/your-feature-name`.
-3. Make your changes and commit them: `git commit -am 'Add new feature'`.
-4. Push to the branch: `git push origin feature/your-feature-name`.
-5. Create a pull request.
 
 ## License
 
