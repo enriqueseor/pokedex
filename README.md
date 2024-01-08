@@ -7,16 +7,8 @@ Is built using [Android](https://www.android.com/).
 
 ## Table of Contents
 
-- [Features](#Features)
 - [Getting Started](#getting-started)
 - [License](#license)
-
-## Features
-
-- API consumption.
-- Recycler View display.
-- Display API text.
-- Display API Images.
 
 ## Getting Started
 
